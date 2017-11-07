@@ -1,0 +1,8 @@
+DELIMITER_STATEMENT_START=<%
+DELIMITER_STATEMENT_END=%>
+FNP.String = org.apache.commons.lang3.StringUtils
+FNP.Array = org.apache.commons.lang3.ArrayUtils
+FNP.Host = com.baifubao.superhero.util.common.HostUtil
+
+ERROR_HANDLER = com.baifubao.superhero.util.web.common.beetl.BeetlExceptionErrorHandler
+RESOURCE_LOADER=com.baifubao.superhero.util.web.common.beetl.ConfigurableFileResourceLoader

@@ -1,0 +1,9 @@
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://lihuazhai.mysql.rds.aliyuncs.com:3306/purchase
+jdbc.user=daigou
+jdbc.password=Daigou!2017
+
+target.model.package=com.baidu.agentseller.dal.entity
+target.client.package=com.baidu.agentseller.dal.mapper.auto
+
+gmt.create=add_time

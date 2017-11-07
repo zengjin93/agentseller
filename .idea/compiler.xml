@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="agentseller-base" />
+        <module name="agentseller-biz" />
+        <module name="agentseller-dal" />
+        <module name="agentseller-service-api" />
+        <module name="agentseller-service-impl" />
+        <module name="agentseller-service-integration" />
+        <module name="agentseller-test" />
+        <module name="agentseller-war" />
+        <module name="agentseller-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="agentseller" target="1.6" />
+      <module name="agentseller-base" target="1.6" />
+      <module name="agentseller-biz" target="1.6" />
+      <module name="agentseller-dal" target="1.6" />
+      <module name="agentseller-service" target="1.6" />
+      <module name="agentseller-service-api" target="1.6" />
+      <module name="agentseller-service-impl" target="1.6" />
+      <module name="agentseller-service-integration" target="1.6" />
+      <module name="agentseller-test" target="1.6" />
+      <module name="agentseller-war" target="1.6" />
+      <module name="agentseller-web" target="1.6" />
+      <module name="app" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

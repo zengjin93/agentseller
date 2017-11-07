@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.agentseller.dal.mapper.auto.RefundInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.baidu.agentseller.dal.entity.RefundInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.baidu.agentseller.dal.entity.RefundInfoWithBLOBs" extends="BaseResultMap" >
+    <result column="req_response" property="reqResponse" jdbcType="LONGVARCHAR" />
+    <result column="notify_req" property="notifyReq" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, add_time, order_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    req_response, notify_req
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.baidu.agentseller.dal.entity.RefundInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wechat_refund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.RefundInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wechat_refund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wechat_refund_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_refund_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByExampleWithPaging" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.RefundInfoExample" >
+    select
+    <include refid="Base_Column_List" />
+    from wechat_refund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit ${startIndex},${pageSize}
+  </select>
+  <delete id="deleteByExample" parameterType="com.baidu.agentseller.dal.entity.RefundInfoExample" >
+    delete from wechat_refund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baidu.agentseller.dal.entity.RefundInfoWithBLOBs" >
+    insert into wechat_refund_info (id, add_time, order_id, req_response, 
+      notify_req)
+    values (#{id,jdbcType=INTEGER}, now(), #{orderId,jdbcType=INTEGER}, #{reqResponse,jdbcType=LONGVARCHAR}, 
+      #{notifyReq,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.agentseller.dal.entity.RefundInfoWithBLOBs" >
+    insert into wechat_refund_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      add_time,
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="reqResponse != null" >
+        req_response,
+      </if>
+      <if test="notifyReq != null" >
+        notify_req,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      now(),
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="reqResponse != null" >
+        #{reqResponse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notifyReq != null" >
+        #{notifyReq,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baidu.agentseller.dal.entity.RefundInfoExample" resultType="java.lang.Integer" >
+    select count(*) from wechat_refund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wechat_refund_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reqResponse != null" >
+        req_response = #{record.reqResponse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.notifyReq != null" >
+        notify_req = #{record.notifyReq,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update wechat_refund_info
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      req_response = #{record.reqResponse,jdbcType=LONGVARCHAR},
+      notify_req = #{record.notifyReq,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wechat_refund_info
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.agentseller.dal.entity.RefundInfoWithBLOBs" >
+    update wechat_refund_info
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="reqResponse != null" >
+        req_response = #{reqResponse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notifyReq != null" >
+        notify_req = #{notifyReq,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baidu.agentseller.dal.entity.RefundInfoWithBLOBs" >
+    update wechat_refund_info
+    set order_id = #{orderId,jdbcType=INTEGER},
+      req_response = #{reqResponse,jdbcType=LONGVARCHAR},
+      notify_req = #{notifyReq,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.agentseller.dal.entity.RefundInfo" >
+    update wechat_refund_info
+    set order_id = #{orderId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKeyForUpdate" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wechat_refund_info
+    where id = #{id,jdbcType=INTEGER} for update 
+  </select>
+  <select id="selectByExampleForUpdate" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.RefundInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wechat_refund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    for update
+  </select>
+  <insert id="insertBatch" parameterType="com.baidu.agentseller.dal.entity.RefundInfoWithBLOBs" >
+    insert into wechat_refund_info (id, add_time, order_id, req_response, 
+      notify_req)
+    values
+    <foreach item="index" separator="," collection="list" >
+      (#{index.id,jdbcType=INTEGER}, now(), #{index.orderId,jdbcType=INTEGER}, #{index.reqResponse,jdbcType=LONGVARCHAR}, 
+        #{index.notifyReq,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
+</mapper>

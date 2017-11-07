@@ -1,0 +1,4 @@
+agentseller_jdbc_url=jdbc:mysql://lihuazhai.mysql.rds.aliyuncs.com:3306/purchase?useUnicode=true&amp;characterEncoding=gbk&zeroDateTimeBehavior=convertToNull&jdbcCompliantTruncation=false
+agentseller_jdbc_user=daigou
+agentseller_jdbc_password=kV9c+dzjLaeRSIp4KMLU/eLEMqz8cKKC4HEpdiCJ3jnBvM4fpd6jafkqSUihXXLJMDbvKQjU8jHaE/ikCXSHMQ==
+agentseller_jdbc_password_public_key=

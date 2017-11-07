@@ -1,0 +1,62 @@
+    server {
+        listen       ${agentseller.nginx.listen.port};
+        server_name  ${agentseller.nginx.server.name};
+
+        access_log  ${agentseller.logs.nginx.dir}/${app.name}.access.log  main;
+        error_log   ${agentseller.logs.nginx.dir}/error.log warn;
+
+        usertrack on;
+        usertrack_domain '.baidu.com';
+
+        include safe.conf;
+
+        ###if ($host !~ "\.baidu\.com$|\.baidu\.com\:|\.baidu\.com\.cn$|\.baidu\.com\.cn:|\.baidu\.cn$|\.baidu\.cn\:|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:|localhost") {
+        ####    rewrite ^/(.*)$ http://error.baidu.com/errorname.html?url=%1&fr=wallet redirect;
+        ####}
+
+        ###location /services/ {
+        ###    return 403;
+        ###}
+        location / {
+            proxy_pass http://backends/;
+            proxy_redirect default;
+        }
+        location /wxPay/ {
+            proxy_pass http://backends/;
+            proxy_redirect default;
+        }
+        location /order/ {
+            proxy_pass http://backends/;
+            proxy_redirect default;
+        }
+        location /assets/ {
+            root   ${agentseller.nginx.web.root};
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+
+    server {
+        listen       ${agentseller.nginx.service.listen.port};
+        server_name  ${agentseller.nginx.service.server.name};
+
+        access_log  ${agentseller.logs.nginx.dir}/${app.name}.service.access.log  main;
+        error_log   ${agentseller.logs.nginx.dir}/error.log warn;
+
+        usertrack off;
+
+        include safe.conf;
+
+        location / {
+            proxy_pass http://backends/services/;
+            proxy_redirect default;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }

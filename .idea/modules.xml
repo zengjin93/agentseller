@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/agentseller.iml" filepath="$PROJECT_DIR$/agentseller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/base/agentseller-base.iml" filepath="$PROJECT_DIR$/app/base/agentseller-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/biz/agentseller-biz.iml" filepath="$PROJECT_DIR$/app/biz/agentseller-biz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/dal/agentseller-dal.iml" filepath="$PROJECT_DIR$/app/dal/agentseller-dal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/service/agentseller-service.iml" filepath="$PROJECT_DIR$/app/service/agentseller-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/service/api/agentseller-service-api.iml" filepath="$PROJECT_DIR$/app/service/api/agentseller-service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/service/impl/agentseller-service-impl.iml" filepath="$PROJECT_DIR$/app/service/impl/agentseller-service-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/service/integration/agentseller-service-integration.iml" filepath="$PROJECT_DIR$/app/service/integration/agentseller-service-integration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/test/agentseller-test.iml" filepath="$PROJECT_DIR$/app/test/agentseller-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/war/agentseller-war.iml" filepath="$PROJECT_DIR$/war/agentseller-war.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/web/agentseller-web.iml" filepath="$PROJECT_DIR$/app/web/agentseller-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

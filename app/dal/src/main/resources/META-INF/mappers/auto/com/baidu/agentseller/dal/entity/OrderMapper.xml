@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.agentseller.dal.mapper.auto.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.baidu.agentseller.dal.entity.Order" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="b_state_id" property="bStateId" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="c_state_id" property="cStateId" jdbcType="INTEGER" />
+    <result column="c_user_id" property="cUserId" jdbcType="INTEGER" />
+    <result column="freight_id" property="freightId" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="BIGINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="tracking_num" property="trackingNum" jdbcType="VARCHAR" />
+    <result column="tracking_name" property="trackingName" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+    <result column="c_message" property="cMessage" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="BIGINT" />
+    <result column="goods_count" property="goodsCount" jdbcType="INTEGER" />
+    <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+    <result column="consignee_phone" property="consigneePhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, good_id, user_id, add_time, b_state_id, address, c_state_id, c_user_id, freight_id, 
+    pay_time, amount, goods_name, tracking_num, tracking_name, delivery_time, c_message, 
+    store_name, goods_price, goods_count, consignee, consignee_phone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByExampleWithPaging" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.OrderExample" >
+    select
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit ${startIndex},${pageSize}
+  </select>
+  <delete id="deleteByExample" parameterType="com.baidu.agentseller.dal.entity.OrderExample" >
+    delete from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baidu.agentseller.dal.entity.Order" >
+    insert into order (id, good_id, user_id, 
+      add_time, b_state_id, address, c_state_id, 
+      c_user_id, freight_id, pay_time, 
+      amount, goods_name, tracking_num, 
+      tracking_name, delivery_time, c_message, 
+      store_name, goods_price, goods_count, 
+      consignee, consignee_phone)
+    values (#{id,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      now(), #{bStateId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{cStateId,jdbcType=INTEGER}, 
+      #{cUserId,jdbcType=INTEGER}, #{freightId,jdbcType=INTEGER}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{amount,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, #{trackingNum,jdbcType=VARCHAR}, 
+      #{trackingName,jdbcType=VARCHAR}, #{deliveryTime,jdbcType=TIMESTAMP}, #{cMessage,jdbcType=VARCHAR}, 
+      #{storeName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=BIGINT}, #{goodsCount,jdbcType=INTEGER}, 
+      #{consignee,jdbcType=VARCHAR}, #{consigneePhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.agentseller.dal.entity.Order" >
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodId != null" >
+        good_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      add_time,
+      <if test="bStateId != null" >
+        b_state_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="cStateId != null" >
+        c_state_id,
+      </if>
+      <if test="cUserId != null" >
+        c_user_id,
+      </if>
+      <if test="freightId != null" >
+        freight_id,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="trackingNum != null" >
+        tracking_num,
+      </if>
+      <if test="trackingName != null" >
+        tracking_name,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="cMessage != null" >
+        c_message,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsCount != null" >
+        goods_count,
+      </if>
+      <if test="consignee != null" >
+        consignee,
+      </if>
+      <if test="consigneePhone != null" >
+        consignee_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodId != null" >
+        #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      now(),
+      <if test="bStateId != null" >
+        #{bStateId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cStateId != null" >
+        #{cStateId,jdbcType=INTEGER},
+      </if>
+      <if test="cUserId != null" >
+        #{cUserId,jdbcType=INTEGER},
+      </if>
+      <if test="freightId != null" >
+        #{freightId,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingNum != null" >
+        #{trackingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingName != null" >
+        #{trackingName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cMessage != null" >
+        #{cMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=BIGINT},
+      </if>
+      <if test="goodsCount != null" >
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="consignee != null" >
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneePhone != null" >
+        #{consigneePhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baidu.agentseller.dal.entity.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodId != null" >
+        good_id = #{record.goodId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bStateId != null" >
+        b_state_id = #{record.bStateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cStateId != null" >
+        c_state_id = #{record.cStateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cUserId != null" >
+        c_user_id = #{record.cUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightId != null" >
+        freight_id = #{record.freightId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsName != null" >
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackingNum != null" >
+        tracking_num = #{record.trackingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackingName != null" >
+        tracking_name = #{record.trackingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryTime != null" >
+        delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cMessage != null" >
+        c_message = #{record.cMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPrice != null" >
+        goods_price = #{record.goodsPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsCount != null" >
+        goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.consignee != null" >
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consigneePhone != null" >
+        consignee_phone = #{record.consigneePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order
+    set id = #{record.id,jdbcType=INTEGER},
+      good_id = #{record.goodId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      b_state_id = #{record.bStateId,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      c_state_id = #{record.cStateId,jdbcType=INTEGER},
+      c_user_id = #{record.cUserId,jdbcType=INTEGER},
+      freight_id = #{record.freightId,jdbcType=INTEGER},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      amount = #{record.amount,jdbcType=BIGINT},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      tracking_num = #{record.trackingNum,jdbcType=VARCHAR},
+      tracking_name = #{record.trackingName,jdbcType=VARCHAR},
+      delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      c_message = #{record.cMessage,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      goods_price = #{record.goodsPrice,jdbcType=BIGINT},
+      goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      consignee = #{record.consignee,jdbcType=VARCHAR},
+      consignee_phone = #{record.consigneePhone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.agentseller.dal.entity.Order" >
+    update order
+    <set >
+      <if test="goodId != null" >
+        good_id = #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bStateId != null" >
+        b_state_id = #{bStateId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cStateId != null" >
+        c_state_id = #{cStateId,jdbcType=INTEGER},
+      </if>
+      <if test="cUserId != null" >
+        c_user_id = #{cUserId,jdbcType=INTEGER},
+      </if>
+      <if test="freightId != null" >
+        freight_id = #{freightId,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingNum != null" >
+        tracking_num = #{trackingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingName != null" >
+        tracking_name = #{trackingName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cMessage != null" >
+        c_message = #{cMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=BIGINT},
+      </if>
+      <if test="goodsCount != null" >
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneePhone != null" >
+        consignee_phone = #{consigneePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.agentseller.dal.entity.Order" >
+    update order
+    set good_id = #{goodId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      b_state_id = #{bStateId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      c_state_id = #{cStateId,jdbcType=INTEGER},
+      c_user_id = #{cUserId,jdbcType=INTEGER},
+      freight_id = #{freightId,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=BIGINT},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      tracking_num = #{trackingNum,jdbcType=VARCHAR},
+      tracking_name = #{trackingName,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      c_message = #{cMessage,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=BIGINT},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      consignee_phone = #{consigneePhone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKeyForUpdate" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER} for update 
+  </select>
+  <select id="selectByExampleForUpdate" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    for update
+  </select>
+  <insert id="insertBatch" parameterType="com.baidu.agentseller.dal.entity.Order" >
+    insert into order (id, good_id, user_id, 
+      add_time, b_state_id, address, c_state_id, 
+      c_user_id, freight_id, pay_time, 
+      amount, goods_name, tracking_num, 
+      tracking_name, delivery_time, 
+      c_message, store_name, goods_price, 
+      goods_count, consignee, consignee_phone
+      )
+    values
+    <foreach item="index" separator="," collection="list" >
+      (#{index.id,jdbcType=INTEGER}, #{index.goodId,jdbcType=INTEGER}, #{index.userId,jdbcType=INTEGER}, 
+        now(), #{index.bStateId,jdbcType=INTEGER}, #{index.address,jdbcType=VARCHAR}, #{index.cStateId,jdbcType=INTEGER}, 
+        #{index.cUserId,jdbcType=INTEGER}, #{index.freightId,jdbcType=INTEGER}, #{index.payTime,jdbcType=TIMESTAMP}, 
+        #{index.amount,jdbcType=BIGINT}, #{index.goodsName,jdbcType=VARCHAR}, #{index.trackingNum,jdbcType=VARCHAR}, 
+        #{index.trackingName,jdbcType=VARCHAR}, #{index.deliveryTime,jdbcType=TIMESTAMP}, 
+        #{index.cMessage,jdbcType=VARCHAR}, #{index.storeName,jdbcType=VARCHAR}, #{index.goodsPrice,jdbcType=BIGINT}, 
+        #{index.goodsCount,jdbcType=INTEGER}, #{index.consignee,jdbcType=VARCHAR}, #{index.consigneePhone,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+</mapper>

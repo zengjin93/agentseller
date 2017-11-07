@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.agentseller.dal.mapper.auto.FreightMapper" >
+  <resultMap id="BaseResultMap" type="com.baidu.agentseller.dal.entity.Freight" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="freigh" property="freigh" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="c_user_id" property="cUserId" jdbcType="INTEGER" />
+    <result column="b_user_id" property="bUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, freigh, state, add_time, pay_time, c_user_id, b_user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.FreightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from freight
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from freight
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByExampleWithPaging" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.FreightExample" >
+    select
+    <include refid="Base_Column_List" />
+    from freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit ${startIndex},${pageSize}
+  </select>
+  <delete id="deleteByExample" parameterType="com.baidu.agentseller.dal.entity.FreightExample" >
+    delete from freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baidu.agentseller.dal.entity.Freight" >
+    insert into freight (id, freigh, state, 
+      add_time, pay_time, c_user_id, b_user_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{freigh,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
+      now(), #{payTime,jdbcType=TIMESTAMP}, #{cUserId,jdbcType=INTEGER}, #{bUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.agentseller.dal.entity.Freight" >
+    insert into freight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="freigh != null" >
+        freigh,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      add_time,
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="cUserId != null" >
+        c_user_id,
+      </if>
+      <if test="bUserId != null" >
+        b_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="freigh != null" >
+        #{freigh,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      now(),
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUserId != null" >
+        #{cUserId,jdbcType=INTEGER},
+      </if>
+      <if test="bUserId != null" >
+        #{bUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baidu.agentseller.dal.entity.FreightExample" resultType="java.lang.Integer" >
+    select count(*) from freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update freight
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.freigh != null" >
+        freigh = #{record.freigh,jdbcType=BIGINT},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cUserId != null" >
+        c_user_id = #{record.cUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bUserId != null" >
+        b_user_id = #{record.bUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update freight
+    set id = #{record.id,jdbcType=INTEGER},
+      freigh = #{record.freigh,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      c_user_id = #{record.cUserId,jdbcType=INTEGER},
+      b_user_id = #{record.bUserId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.agentseller.dal.entity.Freight" >
+    update freight
+    <set >
+      <if test="freigh != null" >
+        freigh = #{freigh,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUserId != null" >
+        c_user_id = #{cUserId,jdbcType=INTEGER},
+      </if>
+      <if test="bUserId != null" >
+        b_user_id = #{bUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.agentseller.dal.entity.Freight" >
+    update freight
+    set freigh = #{freigh,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      c_user_id = #{cUserId,jdbcType=INTEGER},
+      b_user_id = #{bUserId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKeyForUpdate" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from freight
+    where id = #{id,jdbcType=INTEGER} for update 
+  </select>
+  <select id="selectByExampleForUpdate" resultMap="BaseResultMap" parameterType="com.baidu.agentseller.dal.entity.FreightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from freight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    for update
+  </select>
+  <insert id="insertBatch" parameterType="com.baidu.agentseller.dal.entity.Freight" >
+    insert into freight (id, freigh, state, 
+      add_time, pay_time, c_user_id, 
+      b_user_id)
+    values
+    <foreach item="index" separator="," collection="list" >
+      (#{index.id,jdbcType=INTEGER}, #{index.freigh,jdbcType=BIGINT}, #{index.state,jdbcType=INTEGER}, 
+        now(), #{index.payTime,jdbcType=TIMESTAMP}, #{index.cUserId,jdbcType=INTEGER}, 
+        #{index.bUserId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+</mapper>

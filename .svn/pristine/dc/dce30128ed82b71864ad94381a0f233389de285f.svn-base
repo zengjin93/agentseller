@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.baidu.agentseller</groupId>
+		<artifactId>agentseller</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<artifactId>agentseller-war</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>BaiFuBao agentseller War</name>
+
+	<dependencies>
+		<!-- subprojects -->
+		<dependency>
+			<groupId>com.baidu.agentseller</groupId>
+			<artifactId>agentseller-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.baidu.agentseller</groupId>
+			<artifactId>agentseller-service-impl</artifactId>
+		</dependency>
+		
+		<!-- library -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>org.logback-extensions</groupId>
+			<artifactId>logback-ext-spring</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>

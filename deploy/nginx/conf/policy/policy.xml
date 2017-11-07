@@ -1,0 +1,118 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE Policy SYSTEM "policy.dtd">
+
+<!--DOCTYPE Policy-->
+<Policy>
+    <PatternDefine>
+
+        <IpDict define="WHITELIST">
+            <DictFile>${runtime.dir}/nginx/conf/policy/white_ip</DictFile>
+            <DictMax>10000</DictMax>
+        </IpDict>
+
+        <IpDict define="BLACKLIST">
+            <DictFile>${runtime.dir}/nginx/conf/policy/black_ip</DictFile>
+            <DictMax>10000</DictMax>
+        </IpDict>
+
+        <DistributeIpAttack define="IP_POLICY_1">
+            <PolicyTest>N</PolicyTest>
+            <BadUserNumThreshold>0</BadUserNumThreshold>
+            <BadUserTimePeriod>60</BadUserTimePeriod>
+            <CacheNum>500000</CacheNum>
+            <TimePeriod>10</TimePeriod>
+            <Threshold>60</Threshold>
+            <StatID>1</StatID>
+        </DistributeIpAttack>
+
+        <DistributeIpAttack define="IP_POLICY_2">
+            <PolicyTest>N</PolicyTest>
+            <BadUserNumThreshold>0</BadUserNumThreshold>
+            <BadUserTimePeriod>60</BadUserTimePeriod>
+            <CacheNum>500000</CacheNum>
+            <TimePeriod>60</TimePeriod>
+            <Threshold>360</Threshold>
+            <StatID>2</StatID>
+        </DistributeIpAttack>
+
+        <DistributeURIAttack define="URL_POLICY_1">
+            <PolicyTest>N</PolicyTest>
+            <BadUserNumThreshold>0</BadUserNumThreshold>
+            <BadUserTimePeriod>60</BadUserTimePeriod>
+            <CacheNum>500000</CacheNum>
+            <TimePeriod>60</TimePeriod>
+            <Threshold>1200</Threshold>
+            <StatID>3</StatID>
+        </DistributeURIAttack>
+
+        <DistributeURIAttack define="URL_POLICY_2">
+            <PolicyTest>N</PolicyTest>
+            <BadUserNumThreshold>0</BadUserNumThreshold>
+            <BadUserTimePeriod>60</BadUserTimePeriod>
+            <CacheNum>500000</CacheNum>
+            <TimePeriod>60</TimePeriod>
+            <Threshold>1200</Threshold>
+            <StatID>4</StatID>
+        </DistributeURIAttack>
+
+    </PatternDefine>
+
+    <ActionDefine/>
+
+    <Rule type="PRE" skip="100">
+        <Pattern>
+            <AND>
+                <IpDict match="WHITELIST"/>
+            </AND>
+        </Pattern>
+        <Action>
+            <ReturnCode Code="1001"/>
+        </Action>
+    </Rule>
+
+    <Rule type="PRE" skip="100">
+        <Pattern>
+            <AND>
+                <IpDict match="BLACKLIST"/>
+            </AND>
+        </Pattern>
+        <Action>
+            <ReturnCode Code="1"/>
+        </Action>
+    </Rule>
+
+    <Rule type="PRE" skip="100">
+        <Pattern>
+            <AND>
+                <HttpFilter>
+                    <HTTP_URI match="(^/$)|(^/content)|(^/assets)|(^/static)|(^/resource)|(^/picture)|(^/images)|(^/css)|(^/robots.txt)|(^/favicon.ico)" />
+                </HttpFilter>
+            </AND>
+        </Pattern>
+        <Action>
+            <ReturnCode Code="1002"/>
+        </Action>
+    </Rule>
+
+    <Rule type="PRE" skip="100">
+        <Pattern>
+            <AND>
+                <DistributeIpAttack match="IP_POLICY_1"/>
+            </AND>
+        </Pattern>
+        <Action>
+            <ReturnCode Code="2"/>
+        </Action>
+    </Rule>
+
+    <Rule type="PRE" skip="100">
+        <Pattern>
+            <AND>
+                <DistributeURIAttack match="URL_POLICY_1"/>
+            </AND>
+        </Pattern>
+        <Action>
+            <ReturnCode Code="3"/>
+        </Action>
+    </Rule>
+</Policy>

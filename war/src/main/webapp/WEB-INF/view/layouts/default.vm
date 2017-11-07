@@ -1,0 +1,8 @@
+<html>
+	#parse('layouts/html_header.vm')
+	<body>
+		#parse('layouts/header.vm')
+		$screen_content
+		#parse('layouts/footer.vm')
+	</body>
+</html>

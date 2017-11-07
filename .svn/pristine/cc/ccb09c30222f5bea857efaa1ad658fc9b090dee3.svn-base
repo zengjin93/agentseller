@@ -1,0 +1,12 @@
+        if ($http_user_agent ~* havij|nmap|pangolin|nessus|w3af|sqlmap|nikto) {
+            return 403;
+        }
+        if ($request_uri ~* (\'|\<|\"|\%00|\%22|\%27|\%3e|\%3c|\>|\/\.svn\/|CVS\/Entries)) {
+            return 403;
+        }
+        location ~* \.(sql|bak|inc|old)$ {
+            return 403;
+        }
+        location ^~ /WEB-INF {
+            deny all;
+        }

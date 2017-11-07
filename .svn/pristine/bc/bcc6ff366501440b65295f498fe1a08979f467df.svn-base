@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.baidu.agentseller</groupId>
+		<artifactId>app</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<groupId>com.baidu.agentseller</groupId>
+	<artifactId>agentseller-web</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>BaiFuBao agentseller Web Layer</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.baidu.agentseller</groupId>
+			<artifactId>agentseller-biz</artifactId>
+		</dependency>
+		<!-- 暂时注释掉
+		<dependency>
+			<groupId>com.baifubao.superhero.util</groupId>
+			<artifactId>superhero-util-web-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.baifubao.superhero.util</groupId>
+			<artifactId>superhero-util-web-common</artifactId>
+		</dependency>
+	-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.beetl</groupId>
+			<artifactId>beetl-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

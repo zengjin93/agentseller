@@ -1,0 +1,2 @@
+Hello! This is a Sample! <br />
+User: [username=${key.userName}]

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd	
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="writeAcceptCharset" value="false" />
+			</bean>
+			<bean
+				class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+
+			<bean
+				class="com.baidu.agentseller.service.integration.rest.client.CustomAllEncompassingFormHttpMessageConverter">
+				<constructor-arg name="charset" value="UTF-8" />
+			</bean>
+			<bean
+				class="com.baidu.agentseller.service.integration.rest.client.CustomMappingJackson2HttpMessageConverter">
+				<constructor-arg name="charset" value="UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<context:component-scan base-package="com.baidu"
+		use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller"
+			type="annotation" />
+		<context:include-filter
+			expression="org.springframework.web.bind.annotation.ControllerAdvice"
+			type="annotation" />
+	</context:component-scan>
+
+	<context:property-placeholder
+		location="classpath:agentseller-app-config.properties" order="1"
+		ignore-unresolvable="true" />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean
+				class="com.baidu.agentseller.base.util.log.mdc.WebLogMdcHandlerInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean
+				class="com.baidu.agentseller.service.integration.rest.context.ServiceContextInterceptor" />
+		</mvc:interceptor>
+		<!-- 暂时不需要 <mvc:interceptor> <mvc:mapping path="/**" /> <bean class="com.baifubao.superhero.util.web.security.access.BnsAccessHandlerInterceptor"> 
+			<property name="enable" value="${agentseller.tomcat.access.interceptor.enable}" 
+			/> </bean> </mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/services/**" />
+			<bean
+				class="com.baidu.agentseller.base.util.log.digest.WebDigestLogHandlerInterceptor"
+				c:loggerName="PAGE-DIGEST-LOGGER" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/services/**" />
+			<bean
+				class="com.baidu.agentseller.base.util.log.digest.WebDigestLogHandlerInterceptor"
+				c:loggerName="SERVICE-DIGEST-LOGGER" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/services/**" />
+			<bean
+				class="com.baidu.agentseller.base.util.common.beanexpose.BeanExposeHandlerInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/userinfo/*" />
+			<bean
+				class="com.baidu.agentseller.web.interceptor.UserInfoInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/wxPay/*" />
+			<mvc:exclude-mapping path="/wxPay/payResultNotify" />
+			<mvc:exclude-mapping path="/wxPay/refundResultNotify" />
+			<bean
+				class="com.baidu.agentseller.web.interceptor.LoginInfoInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/order/*" />
+			<bean
+				class="com.baidu.agentseller.web.interceptor.LoginInfoInterceptor" />
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources -->
+	<mvc:resources location="/, classpath:/META-INF/web-resources/"
+		mapping="/resources/**" />
+
+	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static 
+		resource requests to the container's default Servlet -->
+	<mvc:default-servlet-handler />
+
+	<!-- Resolves localized messages*.properties and application.properties 
+		files in the application to allow for internationalization. The messages*.properties 
+		files translate Roo generated messages which are part of the admin interface, 
+		the application.properties resource bundle localizes all application specific 
+		messages such as entity names and menu items. -->
+	<bean
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		id="messageSource" p:basenames="WEB-INF/i18n/messages,WEB-INF/i18n/application"
+		p:fallbackToSystemLocale="false" />
+
+	<!-- Enable this for integration of file upload functionality -->
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver" />
+
+	<!-- Velocity -->
+	<!-- <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer"> 
+		<property name="resourceLoaderPath" value="/WEB-INF/view"/> <property name="velocityProperties"> 
+		<props> <prop key="input.encoding">GBK</prop> <prop key="output.encoding">GBK</prop> 
+		<prop key="contentType">text/html;charset=GBK</prop> <prop key="file.resource.loader.cache">${velocity.file.resource.loader.cache}</prop> 
+		<prop key="file.resource.loader.modificationCheckInterval">${velocity.file.resource.loader.modificationCheckInterval}</prop> 
+		<prop key="velocimacro.library.autoreload">${velocity.velocimacro.library.autoreload}</prop> 
+		<prop key="velocimacro.library">macro.vm</prop> </props> </property> </bean> 
+		<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver"> 
+		<property name="suffix" value=".vm"/> <property name="prefix" value="vm/" 
+		/> <property name="layoutUrl" value="layouts/default.vm" /> <property name="contentType" 
+		value="text/html;charset=GBK" /> <property name="cache" value="${velocity.view.resolver.cache}"/> 
+		<property name="exposeSpringMacroHelpers" value="true"/> <property name="exposeRequestAttributes" 
+		value="true"/> <property name="exposeSessionAttributes" value="true"/> </bean> -->
+
+	<!-- Beetl 暂时注释掉 <bean id="beetlConfig" class="com.baifubao.superhero.util.web.common.beetl.ConfigurableBeetlGroupUtilConfiguration" 
+		init-method="init"/> -->
+	<!--<bean id="viewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver"> 
+		<property name="contentType" value="text/html;charset=UTF-8" /> </bean> -->
+</beans>
